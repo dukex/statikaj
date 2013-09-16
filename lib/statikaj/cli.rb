@@ -17,8 +17,6 @@ module Statikaj
       articles_files = Dir[source.join('articles/*.md')].sort_by {|entry| File.basename(entry) }
 
       articles = articles_files.map{|f| Article.new(f) }
-
-
       articles.each do |article|
         # TODO: custom destination
         article_file = destination.join("public/#{article.slug}").to_s
@@ -32,6 +30,12 @@ module Statikaj
           file.close
         end
       end
+
+      render = Render.new(page: 'index', articles: articles)
+      content = render.page
+      file = File.new(destination.join("public/index.html"), "w+")
+      file.puts content
+      file.close
     end
   end
 end

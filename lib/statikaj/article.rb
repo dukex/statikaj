@@ -63,7 +63,9 @@ module Statikaj
     end
 
     def path
+      # TODO: custom domain
       #  "/#{@config[:prefix]}#{self[:date].strftime("/%Y/%m/%d/#{slug}/")}".squeeze('/')
+      slug
     end
 
     def title()
