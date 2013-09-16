@@ -1,4 +1,4 @@
-# Statikaj
+# Statikaj <a href='https://gemnasium.com/dukex/statikaj'><img src="https://gemnasium.com/dukex/statikaj.png" alt="Dependency Status" /></a>
 
 TODO: Write a gem description
 
