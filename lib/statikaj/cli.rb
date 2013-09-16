@@ -1,7 +1,7 @@
 require 'thor'
 require 'erb'
 require 'statikaj/article'
-require 'statikaj/site'
+require 'statikaj/render'
 require 'ext/ext'
 
 module Statikaj
@@ -18,13 +18,13 @@ module Statikaj
 
       articles = articles_files.map{|f| Article.new(f) }
 
-      site = Site.new
 
       articles.each do |article|
         # TODO: custom destination
         article_file = destination.join("public/#{article.slug}").to_s
 
-        content = site.render articles.first, &Proc.new { articles.first.render }
+        render = Render.new(article: article)
+        content = render.article &Proc.new { article.render }
 
         unless File.exists?(article_file)
           file = File.new(article_file, "w+")
