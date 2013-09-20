@@ -9,8 +9,7 @@ module Statikaj
       self.load #if obj.is_a? Hash
     end
 
-    def render
-      source = Pathname.new ENV['statikaj_source']
+    def render(source)
       ERB.new(File.read(source.join("templates/pages/article.rhtml"))).result(binding)
     end
 

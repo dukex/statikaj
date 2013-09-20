@@ -1,8 +1,9 @@
 module Statikaj
   class Render
-    attr_accessor :title, :articles
+    attr_accessor :title, :articles, :description
 
-    def initialize(options)
+    def initialize(source, options)
+      @source = source
       @article = options.delete(:article) if options[:article]
       @articles = options.delete(:articles) if options[:articles]
       if options[:page]
@@ -12,9 +13,8 @@ module Statikaj
 
     def article(&blk)
       @context = @article
-      # TODO: custom title
-      @title = @article.title
-      to_html &blk
+      yield self
+      to_html &Proc.new{ @article.render(@source) }
     end
 
     def page(&blk)
@@ -26,16 +26,12 @@ module Statikaj
 
     private
       def to_html(&blk)
-        # TODO: source path
-        source = Pathname.new ENV['statikaj_source']
-        layout = File.read(source.join('templates/layout.rhtml'))
+        layout = File.read(@source.join('templates/layout.rhtml'))
         ERB.new(layout).result(binding)
       end
 
       def render_page(page_name)
-        # TODO: source path
-        source = Pathname.new ENV['statikaj_source']
-        page = File.read(source.join("templates/pages/#{page_name}.rhtml"))
+        page = File.read(@source.join("templates/pages/#{page_name}.rhtml"))
         @page = ERB.new(page).result(binding)
       end
   end
