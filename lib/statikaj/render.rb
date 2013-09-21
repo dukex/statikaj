@@ -12,16 +12,17 @@ module Statikaj
     end
 
     def article(&blk)
-      @context = @article
       yield self
-      to_html &Proc.new{ @article.render(@source) }
+      to_html do
+        @article.render(@source)
+      end
     end
 
     def page(&blk)
-      # TODO: custom description and title
-      @context = {description: "TEXT"}
-      @title = "TITLE"
-      to_html &Proc.new { @page }
+      yield self
+      to_html do
+        @page
+      end
     end
 
     private
