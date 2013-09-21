@@ -11,10 +11,10 @@ module Statikaj
       The SOURCE folder should have `articles` folders
       DESTINATION default is ./public
 
-      > $ statikaj build ./src
-      > $ statikaj build ./src ~/myblog/public
+      > $ statikaj build
+      > $ statikaj build ./source ~/myblog/public
     LONGDESC
-    def build(source, destination = "./public")
+    def build(source = "./src", destination = "./public")
       source = Pathname.new source
       destination   = Pathname.new destination
 
@@ -22,6 +22,7 @@ module Statikaj
       articles = articles_files.map{|f| Article.new(f) }
 
       articles.each do |article|
+        puts "Saving: #{article.slug}"
         article_file = destination.join("#{article.slug}").to_s
 
         render = Render.new(source, article: article)
@@ -30,15 +31,14 @@ module Statikaj
           page.description = article.summary
         end
 
-        unless File.exists?(article_file)
+        #unless File.exists?(article_file)
           file = File.new(article_file, "w+")
           file.puts content
           file.close
-        end
+        #end
       end
 
-
-
+      puts "Creating index.html"
       render = Render.new(source, page: 'index', articles: articles.reverse)
       content = render.page
       file = File.new(destination.join("index.html"), "w+")

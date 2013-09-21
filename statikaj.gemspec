@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Statikaj::VERSION
   spec.authors       = ["Duke"]
   spec.email         = ["duke@vertigem.xxx"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Write a gem description}
+  spec.summary       = %q{Write a gem summary}
   spec.homepage      = ""
   spec.license       = "MIT"
 
