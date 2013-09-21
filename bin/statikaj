@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'bundler'
-Bundler.require
-
+require 'bundler/setup'
 require 'statikaj/cli'
-
 
 Statikaj::CLI.start(ARGV)
