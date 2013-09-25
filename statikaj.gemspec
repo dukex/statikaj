@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "statikaj"
   spec.version       = Statikaj::VERSION
   spec.authors       = ["Duke"]
-  spec.email         = ["duke@vertigem.xxx"]
+  spec.email         = ["duke@riseup.net"]
   spec.description   = %q{Statikaj is simple tool to create statikaj blogs.}
   spec.summary       = %q{Statikaj is simple tool to create statikaj blogs.}
   spec.homepage      = "https://github.com/dukex/statikaj"
