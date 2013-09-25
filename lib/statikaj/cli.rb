@@ -6,7 +6,18 @@ require 'ext/ext'
 
 module Statikaj
   class CLI < Thor
-    desc "build SOURCE [DESTINATION]", "build the blog from source to destination folder"
+    include Thor::Actions
+
+    def self.source_root
+      File.expand_path('../../..', __FILE__)
+    end
+
+    desc 'new', 'Create a new project'
+    def new(name)
+      directory('templates', name)
+    end
+
+    desc "build [SOURCE] [DESTINATION]", "build the blog from source to destination folder"
     long_desc <<-LONGDESC
       The SOURCE folder should have `articles` folders
       DESTINATION default is ./public
@@ -40,7 +51,7 @@ module Statikaj
 
       puts "Creating index.html"
       render = Render.new(source, page: 'index', articles: articles.reverse)
-      content = render.page
+      content = render.page {}
       file = File.new(destination.join("index.html"), "w+")
       file.puts content
       file.close
