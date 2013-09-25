@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Statikaj::VERSION
   spec.authors       = ["Duke"]
   spec.email         = ["duke@vertigem.xxx"]
-  spec.description   = %q{Write a gem description}
-  spec.summary       = %q{Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Statikaj is simple tool to create statikaj blogs.}
+  spec.summary       = %q{Statikaj is simple tool to create statikaj blogs.}
+  spec.homepage      = "https://github.com/dukex/statikaj"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
