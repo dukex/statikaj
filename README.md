@@ -1,6 +1,8 @@
 # Statikaj <a href='https://gemnasium.com/dukex/statikaj'><img src="https://gemnasium.com/dukex/statikaj.png" alt="Dependency Status" /></a>
 
-Static blog
+Simple static blog tools, 
+
+
 
 ## Installation
 
@@ -16,14 +18,24 @@ Or install it yourself as:
 
     $ gem install statikaj
 
-## Usage
+## Install
 
     $ statikaj new myblog
     $ cd myblog
     $ statikaj build
     $ rackup -p 3000
+    
+## Create a article
+TODO
+
+## Costum design
+TODO
 
 Your static blog is running on http://localhost:3000
+
+## How use?
+
+* [Apartamento131](https://github.com/dukex/apartamento131)
 
 ## Contributing
 
