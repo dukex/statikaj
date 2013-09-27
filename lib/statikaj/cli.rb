@@ -8,10 +8,6 @@ module Statikaj
   class CLI < Thor
     include Thor::Actions
 
-    def self.source_root
-      File.expand_path('../../..', __FILE__)
-    end
-
     desc 'new', 'Create a new project'
     def new(name)
       directory('templates', name)
@@ -33,7 +29,7 @@ module Statikaj
       articles = articles_files.map{|f| Article.new(f) }
 
       articles.each do |article|
-        puts "Saving: #{article.slug}"
+        say "Saving: #{article.slug}", :green
         article_file = destination.join("#{article.slug}").to_s
 
         render = Render.new(source, article: article)
@@ -43,13 +39,13 @@ module Statikaj
         end
 
         #unless File.exists?(article_file)
-          file = File.new(article_file, "w+")
-          file.puts content
-          file.close
+        file = File.new(article_file, "w+")
+        file.puts content
+        file.close
         #end
       end
 
-      puts "Creating index.html"
+      say "Creating index.html", :green
       render = Render.new(source, page: 'index', articles: articles.reverse)
       content = render.page {}
       file = File.new(destination.join("index.html"), "w+")
