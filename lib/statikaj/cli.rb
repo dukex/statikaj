@@ -52,5 +52,28 @@ module Statikaj
       file.puts content
       file.close
     end
+
+    desc "article", "Create new article"
+    def article
+      title = ask('Title: ')
+      slug = title.empty?? nil : title.strip.slugize
+
+      article = {'title' => title, 'date' => Time.now.strftime("%d/%m/%Y"), 'author' => 'User'}.to_yaml
+      article << "\n"
+      article << "Once upon a time...\n\n"
+      path = "src/articles/#{Time.now.strftime("%Y-%m-%d")}#{'-' + slug if slug}.md"
+      unless File.exist? path
+        begin
+          File.open(path, "w") do |file|
+            file.write article
+          end
+          say "An article was created for you at #{path}.", :green
+        rescue
+          say "Impossible to create #{path}, make sure you are in project root", :red
+        end
+      else
+        say "I can't create the article, #{path} already exists.", :red
+      end
+    end
   end
 end
