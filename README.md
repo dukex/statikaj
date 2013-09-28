@@ -1,40 +1,29 @@
-# Statikaj <a href='https://gemnasium.com/dukex/statikaj'><img src="https://gemnasium.com/dukex/statikaj.png" alt="Dependency Status" /></a>
+# *Statikaj* <a href='https://gemnasium.com/dukex/statikaj'><img src="https://gemnasium.com/dukex/statikaj.png" alt="Dependency Status" /></a>
 
-Simple static blog tools, 
+Simple static blog-engine based on [cloudhead/toto](https://github.com/cloudhead/toto), perfect for hackers. Like **toto**, *Statikaj* is git-powered
 
 
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'statikaj'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+## 10 seconds blog
 
     $ gem install statikaj
-
-## Install
-
     $ statikaj new myblog
     $ cd myblog
     $ statikaj build
-    $ rackup -p 3000
-    
-## Create a article
+    $ rackup -p 3000 # http://localhost:3000
+
+## Why?
+
+Why you don't need generate your blog every http request. *Statikaj* **don't use database**, **don't parse ERB/Markdown** on production. Build your blog and send a static version to your server, *Statikaj* will works with any http server, you don't need ruby, java, php, etc, a small nginx or apache process will be OK.
+
+## Creating and Writing a article
+
+
+
+## Works on your blog design
 TODO
 
-## Costum design
-TODO
 
-Your static blog is running on http://localhost:3000
-
-## How use?
-
+## Who uses it?
 * [Apartamento131](https://github.com/dukex/apartamento131)
 
 ## Contributing
