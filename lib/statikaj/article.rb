@@ -42,14 +42,8 @@ module Statikaj
       self[:slug] || self[:title].slugize
     end
 
-    def summary length = nil
-      #   config = @config[:summary]
-      #   sum = if self[:body] =~ config[:delim]
-      #     self[:body].split(config[:delim]).first
-      #   else
-      #     self[:body].match(/(.{1,#{length || config[:length] || config[:max]}}.*?)(\n|\Z)/m).to_s
-      #   end
-      #   markdown(sum.length == self[:body].length ? sum : sum.strip.sub(/\.\Z/, '&hellip;'))
+    def summary
+      markdown(sum.length == self[:body].length ? sum : sum.strip.sub(/\.\Z/, '&hellip;'))
     end
 
     def url
