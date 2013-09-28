@@ -42,6 +42,7 @@ module Statikaj
     end
 
     def summary
+      sum = self[:body].split("~~~").first
       markdown(sum.length == self[:body].length ? sum : sum.strip.sub(/\.\Z/, '&hellip;'))
     end
 
@@ -51,7 +52,7 @@ module Statikaj
     alias :permalink url
 
     def body
-      markdown self[:body]
+      markdown self[:body].sub("~~~", '')
     end
 
     def path
