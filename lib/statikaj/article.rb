@@ -4,9 +4,9 @@ require 'kramdown'
 
 module Statikaj
   class Article < Hash
-    def initialize obj, config = {}
+    def initialize obj, config
       @obj, @config = obj, config
-      self.load #if obj.is_a? Hash
+      self.load
     end
 
     def render(source)
@@ -19,8 +19,7 @@ module Statikaj
 
     def load
       data = if @obj.is_a? String
-        meta, self[:body] = File.read(@obj).split(/\n\n/, 2)
-          # use the date from the filename, or else toto won't find the article
+          meta, self[:body] = File.read(@obj).split(/\n\n/, 2)
           @obj =~ /\/(\d{4}-\d{2}-\d{2})[^\/]*$/
           ($1 ? {:date => $1} : {}).merge(YAML.load(meta))
         elsif @obj.is_a? Hash
@@ -56,18 +55,14 @@ module Statikaj
     end
 
     def path
-      # TODO: custom domain
-      #  "/#{@config[:prefix]}#{self[:date].strftime("/%Y/%m/%d/#{slug}/")}".squeeze('/')
       slug
     end
 
-    def title()
+    def title
       self[:title] || "an article"
     end
 
-    def date()
-      # TODO: costum
-      # @config[:date].call(self[:date])
+    def date
       self[:date].strftime("%B #{self[:date].day.ordinal} %Y")
     end
 
