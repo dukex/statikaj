@@ -1,5 +1,4 @@
 require 'thor'
-require 'erb'
 require 'statikaj/article'
 require 'statikaj/render'
 require 'ext/ext'
@@ -17,15 +16,18 @@ module Statikaj
     option :force, :type => :boolean, default: false, aliases: :f, desc: "force rebuild olds articles"
     option :url, :type => :string, required: true, desc: "base blog url"
     long_desc <<-LONGDESC
-      > $ statikaj build --url http://myblog.com/
-      > $ statikaj build -f --url http://myblog.com/
+      > $ statikaj build --url http://myblog.com
+      > $ statikaj build -f --url http://myblog.com
     LONGDESC
     def build
       source      = Pathname.new "./src"
       destination = Pathname.new "./public"
 
+      config = {}
+      config[:url] = options[:url].split("/").join("/")
+
       articles_files = Dir[source.join('articles/*.md')].sort_by {|entry| File.basename(entry) }
-      articles = articles_files.map{|f| Article.new(f, options[:url]) }
+      articles = articles_files.map{|f| Article.new(f, config) }
 
       articles.each do |article|
         if options[:force]

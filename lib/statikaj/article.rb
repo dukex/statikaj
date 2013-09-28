@@ -67,11 +67,11 @@ module Statikaj
       self[:date]
     end
 
-    def author()
+    def author
       self[:author]
     end
 
-    def to_html()
+    def to_html
       self.load; super(:article, @config)
     end
     alias :to_s to_html
