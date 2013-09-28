@@ -14,9 +14,11 @@ module Statikaj
     end
 
     desc "build", "Build the static blog version on public folder"
+    option :force, :type => :boolean, default: false, aliases: :f, desc: "force rebuild olds articles"
     option :url, :type => :string, required: true, desc: "base blog url"
     long_desc <<-LONGDESC
       > $ statikaj build --url http://myblog.com/
+      > $ statikaj build -f --url http://myblog.com/
     LONGDESC
     def build
       source      = Pathname.new "./src"
@@ -26,20 +28,20 @@ module Statikaj
       articles = articles_files.map{|f| Article.new(f, options[:url]) }
 
       articles.each do |article|
-        say "Saving: #{article.slug}", :green
-        article_file = destination.join("#{article.slug}").to_s
+        if options[:force]
+          say "Saving: #{article.slug}", :green
+          article_file = destination.join("#{article.slug}").to_s
 
-        render = Render.new(source, article: article)
-        content = render.article do |page|
-          page.title = article.title
-          page.description = article.summary
+          render = Render.new(source, article: article)
+          content = render.article do |page|
+            page.title = article.title
+            page.description = article.summary
+          end
+
+          file = File.new(article_file, "w+")
+          file.puts content
+          file.close
         end
-
-        #unless File.exists?(article_file)
-        file = File.new(article_file, "w+")
-        file.puts content
-        file.close
-        #end
       end
 
       say "Creating index.html", :green
