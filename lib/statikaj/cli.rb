@@ -13,17 +13,13 @@ module Statikaj
       directory('templates', name)
     end
 
-    desc "build [SOURCE] [DESTINATION]", "build the blog from source to destination folder"
+    desc "build", "Build the static blog version on public folder"
     long_desc <<-LONGDESC
-      The SOURCE folder should have `articles` folders
-      DESTINATION default is ./public
-
       > $ statikaj build
-      > $ statikaj build ./source ~/myblog/public
     LONGDESC
-    def build(source = "./src", destination = "./public")
-      source = Pathname.new source
-      destination   = Pathname.new destination
+    def build
+      source      = Pathname.new "./src"
+      destination = Pathname.new "./public"
 
       articles_files = Dir[source.join('articles/*.md')].sort_by {|entry| File.basename(entry) }
       articles = articles_files.map{|f| Article.new(f) }

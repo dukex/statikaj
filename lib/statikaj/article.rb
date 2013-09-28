@@ -73,6 +73,6 @@ module Statikaj
     def to_html()
       self.load; super(:article, @config)
     end
-    #alias :to_s to_html
+    alias :to_s to_html
   end
 end
