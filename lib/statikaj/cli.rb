@@ -7,9 +7,13 @@ module Statikaj
   class CLI < Thor
     include Thor::Actions
 
+    def self.source_root
+      File.expand_path('../../..', __FILE__)
+    end
+
     desc 'new', 'Create a new project'
     def new(name)
-      directory('templates', name)
+      directory('templates', name, verbose: true)
     end
 
     desc "build", "Build the static blog version on public folder"
