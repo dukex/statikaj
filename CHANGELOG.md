@@ -7,6 +7,7 @@
 * added url params on build
 * added permalink to article
 * added force option to rebuild old articles
+* added atom support
 
 * now the date of article return a Date object
 
