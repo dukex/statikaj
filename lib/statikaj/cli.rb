@@ -52,6 +52,15 @@ module Statikaj
       file = File.new(destination.join("index.html"), "w+")
       file.puts content
       file.close
+
+      say "Creating feed.atom", :green
+      render = Render.new(source, page: 'index', articles: articles.reverse, type: :atom)
+      atom_content = render.page do |page|
+        page.url = config[:url]
+      end
+      file = File.new(destination.join("feed.atom"), "w+")
+      file.puts atom_content
+      file.close
     end
 
     desc "article", "Create new article"

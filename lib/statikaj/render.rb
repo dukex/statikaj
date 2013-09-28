@@ -1,12 +1,16 @@
+require 'erb'
+require 'builder'
+
 module Statikaj
   class Render
-    attr_accessor :title, :articles, :description
+    attr_accessor :title, :articles, :description, :url
 
     def initialize(source, options)
       @source = source
       @article = options.delete(:article) if options[:article]
       @articles = options.delete(:articles) if options[:articles]
-      if options[:page]
+      @type = options.fetch(:type, :html)
+      if options[:page] && @type == :html
         render_page(options.delete(:page))
       end
     end
@@ -20,15 +24,18 @@ module Statikaj
 
     def page(&blk)
       yield self
-      to_html do
-        @page
-      end
+      send("to_#{@type}"){ @page }
     end
 
     private
       def to_html(&blk)
         layout = File.read(@source.join('templates/layout.rhtml'))
         ERB.new(layout).result(binding)
+      end
+
+      def to_atom
+        xml = Builder::XmlMarkup.new(:indent => 2)
+        instance_eval  File.read(@source.join("templates/index.builder"))
       end
 
       def render_page(page_name)
