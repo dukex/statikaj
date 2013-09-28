@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
+statikaj_path = File.join(File.expand_path("../lib", __FILE__))
+$:.unshift(statikaj_path)
+
 require 'statikaj/cli'
 
 Statikaj::CLI.start(ARGV)
