@@ -63,7 +63,7 @@ module Statikaj
     end
 
     def date
-      self[:date].strftime("%B #{self[:date].day.ordinal} %Y")
+      self[:date]
     end
 
     def author()
