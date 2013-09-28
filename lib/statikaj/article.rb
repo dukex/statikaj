@@ -46,9 +46,9 @@ module Statikaj
     end
 
     def url
-      #  "http://#{(@config[:url].sub("http://", '') + self.path).squeeze('/')}"
+      "http://#{(@config[:url].sub("http://", '') + self.path).squeeze('/')}"
     end
-    #alias :permalink url
+    alias :permalink url
 
     def body
       markdown self[:body]
