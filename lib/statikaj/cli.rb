@@ -14,15 +14,16 @@ module Statikaj
     end
 
     desc "build", "Build the static blog version on public folder"
+    option :url, :type => :string, required: true, desc: "base blog url"
     long_desc <<-LONGDESC
-      > $ statikaj build
+      > $ statikaj build --url http://myblog.com/
     LONGDESC
     def build
       source      = Pathname.new "./src"
       destination = Pathname.new "./public"
 
       articles_files = Dir[source.join('articles/*.md')].sort_by {|entry| File.basename(entry) }
-      articles = articles_files.map{|f| Article.new(f) }
+      articles = articles_files.map{|f| Article.new(f, options[:url]) }
 
       articles.each do |article|
         say "Saving: #{article.slug}", :green
