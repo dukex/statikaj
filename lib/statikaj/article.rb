@@ -56,7 +56,7 @@ module Statikaj
     end
 
     def path
-      slug
+      "/#{slug}"
     end
 
     def title
