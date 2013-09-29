@@ -8,7 +8,7 @@ Simple static blog-engine based on [cloudhead/toto](https://github.com/cloudhead
     $ gem install statikaj
     $ statikaj new myblog
     $ cd myblog
-    $ statikaj build
+    $ statikaj build --url http://myblog.com
     $ rackup -p 3000 # http://localhost:3000
 
 ## Why?
@@ -17,10 +17,43 @@ Why you don't need generate your blog every http request. *Statikaj* **don't use
 
 ## Creating and Writing a article
 
+Create a article is very easy, first to create a correct file *Statikaj* provides the ```article``` command.
 
+    $ statikaj article
+
+*Statikaj* ```article``` will prompt the article title, and will create a file into ```src/articles```, use your preferred markdown editor open the file. When you finished just builds yout blog again.
+
+    $ statikaj build --url http://myblog.com
+
+### The article file
+
+The article file show like it:
+
+<pre>---
+title: My Title
+date: 29/09/2013
+author: User
+category: category
+
+Once upon a time...</pre>
+
+To create a **summary** use ```~~~``` as delimiter, like it:
+
+<pre>---
+title: My Title
+date: 29/09/2013
+author: User
+category: category
+
+Once upon a time, there was a lovely princess.
+
+~~~
+
+But she had an enchantment upon her of a fearful sort, which could only be broken by love's first kiss.
+</pre>
 
 ## Works on your blog design
-TODO
+> TODO, for now see [src/templates](https://github.com/dukex/statikaj/tree/master/templates/src/templates)
 
 
 ## Who uses it?
