@@ -19,8 +19,10 @@ module Statikaj
     desc "build", "Build the static blog version on public folder"
     option :force, :type => :boolean, default: false, aliases: :f, desc: "force rebuild olds articles"
     option :url, :type => :string, required: true, desc: "base blog url"
+    option :"no-category", :type => :boolean, default: false, desc: "without category support"
     long_desc <<-LONGDESC
       > $ statikaj build --url http://myblog.com
+      > $ statikaj build --no-category --url http://myblog.com
       > $ statikaj build -f --url http://myblog.com
     LONGDESC
     def build
@@ -54,8 +56,6 @@ module Statikaj
         end
       end
 
-
-
       say "Creating index.html", :green
       render = Render.new(source, page: 'index', articles: articles.reverse)
       content = render.page {}
@@ -72,16 +72,19 @@ module Statikaj
       file.puts atom_content
       file.close
 
-      categories.each do |key, _articles|
-        key = "No Category" if key.nil?
-        slug = key.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
-        say "Creating category #{slug}", :green
+      unless options[:"no-category"]
+        empty_directory destination.join("category")
+        categories.each do |key, _articles|
+          key = "No Category" if key.nil?
+          slug = key.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+          say "Creating category #{slug}", :green
 
-        render = Render.new(source, page: 'category', url: slug, articles: _articles.reverse)
-        content = render.page {}
-        category_file = File.new(destination.join("category/#{slug}"), "w+")
-        category_file.puts content
-        category_file.close
+          render = Render.new(source, page: 'category', url: slug, articles: _articles.reverse)
+          content = render.page {}
+          category_file = File.new(destination.join("category/#{slug}"), "w+")
+          category_file.puts content
+          category_file.close
+        end
       end
     end
 
