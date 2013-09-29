@@ -40,50 +40,36 @@ module Statikaj
         categories[article.category] ||= []
         categories[article.category] << article
 
-        if options[:force]
-          say "Saving: #{article.slug}", :green
-          article_file = destination.join("#{article.slug}").to_s
+        article_file = destination.join("#{article.slug}").to_s
 
-          render = Render.new(source, article: article)
-          content = render.article do |page|
-            page.title = article.title
-            page.description = article.summary
-          end
-
-          file = File.new(article_file, "w+")
-          file.puts content
-          file.close
+        render = Render.new(source, article: article)
+        content = render.article do |page|
+          page.title = article.title
+          page.description = article.summary
         end
+
+        create_file article_file, content, force: options[:force]
       end
 
-      say "Creating index.html", :green
       render = Render.new(source, page: 'index', articles: articles.reverse)
       content = render.page {}
-      file = File.new(destination.join("index.html"), "w+")
-      file.puts content
-      file.close
+      create_file destination.join("index.html"), content, force: true
 
-      say "Creating feed.atom", :green
       render = Render.new(source, page: 'index', articles: articles.reverse, type: :atom)
       atom_content = render.page do |page|
         page.url = config[:url]
       end
-      file = File.new(destination.join("feed.atom"), "w+")
-      file.puts atom_content
-      file.close
+      create_file destination.join("feed.atom"), atom_content, force: true
 
       unless options[:"no-category"]
         empty_directory destination.join("category")
         categories.each do |key, _articles|
           key = "No Category" if key.nil?
           slug = key.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
-          say "Creating category #{slug}", :green
 
           render = Render.new(source, page: 'category', url: slug, articles: _articles.reverse)
           content = render.page {}
-          category_file = File.new(destination.join("category/#{slug}"), "w+")
-          category_file.puts content
-          category_file.close
+          create_file destination.join("category/#{slug}"), content, force: true
         end
       end
     end
