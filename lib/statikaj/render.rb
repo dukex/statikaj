@@ -1,5 +1,6 @@
 require 'erb'
 require 'builder'
+require 'statikaj/version'
 
 module Statikaj
   class Render
