@@ -17,13 +17,20 @@ module Statikaj
     end
 
     desc "build", "Build the static blog version on public folder"
-    option :force, :type => :boolean, default: false, aliases: :f, desc: "force rebuild olds articles"
     option :url, :type => :string, required: true, desc: "base blog url"
+    option :force, :type => :boolean, default: false, aliases: :f, desc: "force rebuild olds articles"
     option :"no-category", :type => :boolean, default: false, desc: "without category support"
     long_desc <<-LONGDESC
-      > $ statikaj build --url http://myblog.com
-      > $ statikaj build --no-category --url http://myblog.com
-      > $ statikaj build -f --url http://myblog.com
+      The build command will do:\n
+        1. Get all articles file, and create a article html version\n
+        2. Create the index.html file\n
+        3. Create the feed.atom file\n
+        4. Create the category file, use --no-category with you don't need category support\n\n
+
+      Examples:\n
+      $ statikaj build --url http://myblog.com\n
+      $ statikaj build --no-category --url http://myblog.com\n
+      $ statikaj build -f --url http://myblog.com
     LONGDESC
     def build
       source      = Pathname.new "./src"

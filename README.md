@@ -15,6 +15,17 @@ Simple static blog-engine based on [cloudhead/toto](https://github.com/cloudhead
 
 Why you don't need generate your blog every http request. *Statikaj* **don't use database**, **don't parse ERB/Markdown** on production. Build your blog and send a static version to your server, *Statikaj* will works with any http server, you don't need ruby, java, php, etc, a small nginx or apache process will be OK.
 
+## Command line
+
+    $ statikaj
+    Commands:
+      statikaj article          # Create new article
+      statikaj build --url=URL  # Build the static blog version on public folder
+      statikaj help [COMMAND]   # Describe available commands or one specific command
+      statikaj new              # Create a new project
+
+
+
 ## Creating and Writing a article
 
 Create a article is very easy, first to create a correct file *Statikaj* provides the ```article``` command.
