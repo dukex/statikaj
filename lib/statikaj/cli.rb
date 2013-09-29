@@ -32,8 +32,12 @@ module Statikaj
 
       articles_files = Dir[source.join('articles/*.md')].sort_by {|entry| File.basename(entry) }
       articles = articles_files.map{|f| Article.new(f, config) }
+      categories = {}
 
       articles.each do |article|
+        categories[article.category] ||= []
+        categories[article.category] << article
+
         if options[:force]
           say "Saving: #{article.slug}", :green
           article_file = destination.join("#{article.slug}").to_s
@@ -50,6 +54,8 @@ module Statikaj
         end
       end
 
+
+
       say "Creating index.html", :green
       render = Render.new(source, page: 'index', articles: articles.reverse)
       content = render.page {}
@@ -65,6 +71,18 @@ module Statikaj
       file = File.new(destination.join("feed.atom"), "w+")
       file.puts atom_content
       file.close
+
+      categories.each do |key, _articles|
+        key = "No Category" if key.nil?
+        slug = key.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+        say "Creating category #{slug}", :green
+
+        render = Render.new(source, page: 'category', url: slug, articles: _articles.reverse)
+        content = render.page {}
+        category_file = File.new(destination.join("category/#{slug}"), "w+")
+        category_file.puts content
+        category_file.close
+      end
     end
 
     desc "article", "Create new article"

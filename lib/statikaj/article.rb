@@ -71,6 +71,10 @@ module Statikaj
       self[:author]
     end
 
+    def category
+      self[:category]
+    end
+
     def to_html
       self.load; super(:article, @config)
     end
