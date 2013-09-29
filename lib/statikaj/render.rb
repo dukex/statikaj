@@ -1,10 +1,9 @@
 require 'erb'
 require 'builder'
 require 'statikaj/version'
-
 module Statikaj
   class Render
-    attr_accessor :title, :articles, :description, :url
+    attr_accessor :title, :articles, :description, :url, :category
 
     def initialize(source, options)
       @source = source

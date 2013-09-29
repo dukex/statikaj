@@ -1,0 +1,17 @@
+<h2>Category: <%= category %></h2>
+<ul id="articles">
+<% articles.select {|a| a[:date] <= Date.today}[0...10].each do |article| %>
+  <li><article>
+  <h3><a href="<%= article.path %>"><%= article.title %></a></h2>
+  <div class="about">
+    <p>em <%= article.category %></p>
+    <p>as <%= article.date %></p>
+  </div>
+  <div class="resume">
+    <%= article.body.split("~~~").first %>
+  </div>
+  <a class="read_more" href="<%= article.path %>">Continue Lendo</a>
+  </article></li>
+<% end %>
+</ul>
+

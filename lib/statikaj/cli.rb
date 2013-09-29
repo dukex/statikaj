@@ -75,7 +75,7 @@ module Statikaj
           slug = key.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
 
           render = Render.new(source, page: 'category', url: slug, articles: _articles.reverse)
-          content = render.page {}
+          content = render.page{|page| page.category = key }
           create_file destination.join("category/#{slug}"), content, force: true
         end
       end
