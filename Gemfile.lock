@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    statikaj (0.0.3)
+    statikaj (0.0.4)
       builder
       kramdown
       thor
