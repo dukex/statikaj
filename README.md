@@ -66,6 +66,11 @@ But she had an enchantment upon her of a fearful sort, which could only be broke
 ## Works on your blog design
 > TODO, for now see [src/templates](https://github.com/dukex/statikaj/tree/master/templates/src/templates)
 
+## Update
+
+	$ gem install statikaj # or bundle update statikaj
+	$ cd myblog
+	$ statikaj new . # ATTENTION the command will prompt if you want change yours files, make a backup before!
 
 ## Who uses it?
 * [Apartamento131](https://github.com/dukex/apartamento131)
