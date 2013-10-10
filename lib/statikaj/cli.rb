@@ -39,7 +39,7 @@ module Statikaj
       config = {}
       config[:url] = options[:url].split("/").join("/")
 
-      articles_files = Dir[source.join('articles/*.md')].sort_by {|entry| File.basename(entry) }
+      articles_files = Dir[source.join('articles/*.md')].sort_by {|entry| File.basename(entry) }.reverse
       articles = articles_files.map{|f| Article.new(f, config) }
       categories = {}
 
