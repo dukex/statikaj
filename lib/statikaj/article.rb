@@ -28,7 +28,7 @@ module Statikaj
 
       self.taint
       self.update data
-      self[:date] = Date.parse(self[:date].gsub('/', '-')) rescue Date.today
+      self[:date] = Time.parse(self[:date].gsub('/', '-')) rescue Time.now
       self
     end
 
