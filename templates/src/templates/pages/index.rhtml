@@ -1,5 +1,5 @@
 <ul id="posts">
-  <% articles.select {|a| a[:date] <= Date.today}[0...10].each do |article| %>
+  <% articles.select {|a| a[:date] <= Time.now}[0...10].each do |article| %>
     <li class="post">
       <h2><a href="<%= article.path %>"><%= article.title %></a></h2>
       <span class="author"><%= article.author %></span> -
